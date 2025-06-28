@@ -1,6 +1,6 @@
 # React Poll Widget
 
-A poll widget built with React that can be easily embedded as an iframe in any website.
+A poll widget built with React that can be easily **embedded as an iframe in any website**.
 
 ## Demo
 
