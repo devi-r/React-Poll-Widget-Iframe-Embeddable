@@ -4,8 +4,7 @@ A poll widget built with React that can be easily **embedded as an iframe in any
 
 ## Demo
 
-- **Main App**: [https://react-poll-widget.onrender.com](https://react-poll-widget.onrender.com) - Full React application with documentation
-- **Widget Route**: [https://react-poll-widget.onrender.com/poll-widget](https://react-poll-widget.onrender.com/poll-widget) - Standalone widget for iframe embedding
+- **Widget Route**: [https://react-poll-widget.onrender.com](https://react-poll-widget.onrender.com) - Standalone widget for iframe embedding
 - **Iframe Demo**: [https://react-poll-widget.onrender.com/demo.html](https://react-poll-widget.onrender.com/demo.html) - **Basic HTML page demonstrating iframe embedding**
 
 ### What the Demo Shows

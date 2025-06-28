@@ -8,8 +8,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/poll-widget" element={<PollWidgetPage />} />
+        <Route path="/" element={<PollWidgetPage />} />
+        <Route path="/home" element={<HomePage />} />
       </Routes>
     </Router>
   );
