@@ -1,70 +1,122 @@
-# Getting Started with Create React App
+# React Poll Widget
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A poll widget built with React that can be easily embedded as an iframe in any website.
 
-## Available Scripts
+## Demo
 
-In the project directory, you can run:
+- **Main App**: [https://react-poll-widget.onrender.com](https://react-poll-widget.onrender.com) - Full React application with documentation
+- **Widget Route**: [https://react-poll-widget.onrender.com/poll-widget](https://react-poll-widget.onrender.com/poll-widget) - Standalone widget for iframe embedding
+- **Iframe Demo**: [https://react-poll-widget.onrender.com/demo.html](https://react-poll-widget.onrender.com/demo.html) - **Basic HTML page demonstrating iframe embedding**
 
-### `npm start`
+### What the Demo Shows
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The `demo.html` page demonstrates:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Iframe Embedding**: Shows how the React widget is embedded in a basic HTML page
+- **Visual Indicators**: Clear badges and borders showing HTML vs React content
+- **Cross-Origin Communication**: Real-time height adjustment between iframe and parent
+- **Seamless Integration**: Widget appears as part of the website while maintaining isolation
 
-### `npm test`
+The demo page is a **basic HTML file** (not a React app) that contains:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- HTML content sections (marked with orange indicators)
+- An embedded React widget (marked with blue indicators)
+- Real-world example of how the widget integrates into existing websites
 
-### `npm run build`
+## Quick Start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. Install Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2. Start Development Server
 
-### `npm run eject`
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The app will open at [http://localhost:3000](http://localhost:3000)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Embedding the Widget
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Basic Embed
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Copy this code to embed the poll widget in your website:
 
-## Learn More
+```html
+<iframe
+  src="https://react-poll-widget.onrender.com/poll-widget"
+  width="500"
+  height="400"
+  frameborder="0"
+  scrolling="no"
+>
+</iframe>
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+> **💡 Tip**: Check out the [demo.html](https://react-poll-widget.onrender.com/demo.html) page to see a real example of iframe embedding in action!
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Customizing the Poll
 
-### Code Splitting
+You can customize the poll by sending a message to the iframe:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```javascript
+// Get the iframe element
+const iframe = document.querySelector("iframe");
 
-### Analyzing the Bundle Size
+// Wait for the widget to be ready
+iframe.addEventListener("load", () => {
+  iframe.contentWindow.postMessage(
+    {
+      type: "POLL_CONFIG",
+      config: {
+        pollId: "my-custom-poll",
+        question: "What is your favorite color?",
+        options: ["Red", "Blue", "Green", "Yellow"],
+      },
+    },
+    "*"
+  );
+});
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Listening for Votes
 
-### Making a Progressive Web App
+Listen for when users vote:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```javascript
+window.addEventListener("message", (event) => {
+  if (event.data.type === "POLL_VOTE") {
+    console.log("User voted:", event.data.selectedOption);
+    console.log("All votes:", event.data.votes);
+    console.log("Poll ID:", event.data.pollId);
+  }
+});
+```
 
-### Advanced Configuration
+## API Reference
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Poll Configuration
 
-### Deployment
+The poll widget accepts the following configuration:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```javascript
+{
+  pollId: 'unique-poll-identifier',    // Required: Unique ID for the poll
+  question: 'Your poll question?',     // Required: The poll question
+  options: ['Option 1', 'Option 2']    // Required: Array of poll options
+}
+```
 
-### `npm run build` fails to minify
+### Message Types
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### From Parent to Widget
+
+- `POLL_CONFIG` - Configure the poll with custom question and options
+
+#### From Widget to Parent
+
+- `POLL_WIDGET_READY` - Widget is ready to receive configuration
+- `POLL_VOTE` - User has voted (includes selected option and all votes)

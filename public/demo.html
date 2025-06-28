@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Website - Poll Widget Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f8f9fa;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+        position: relative;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+      }
+
+      header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* Page Type Indicators */
+      .page-indicator {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
+
+      .html-badge {
+        background: #e34c26;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        margin-right: 8px;
+      }
+
+      .react-badge {
+        background: #61dafb;
+        color: #282c34;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: bold;
+      }
+
+      /* Main Content */
+      main {
+        padding: 3rem 0;
+      }
+
+      .section {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid #e34c26;
+        position: relative;
+      }
+
+      .section::before {
+        content: "HTML Content";
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #e34c26;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+
+      .section h2 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      .section p {
+        color: #6c757d;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+
+      /* Widget Section */
+      .widget-section {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+        border: 3px solid #61dafb;
+      }
+
+      .widget-section::before {
+        content: "React Widget Embedded Here";
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #61dafb;
+        color: #282c34;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 10;
+      }
+
+      .widget-section h2 {
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        font-weight: 600;
+      }
+
+      .widget-section p {
+        color: #6c757d;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+      }
+
+      .iframe-container {
+        border: 3px dashed #667eea;
+        border-radius: 8px;
+        margin: 0 auto;
+        max-width: 600px;
+        transition: height 0.3s ease;
+        position: relative;
+        padding: 20px 0;
+      }
+
+      .iframe-container::before {
+        content: "Iframe Container";
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        background: #667eea;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        z-index: 10;
+      }
+
+      .iframe-container iframe {
+        transition: height 0.3s ease;
+        border: none;
+        display: block;
+        width: 100%;
+        height: 400px;
+        min-height: 200px;
+        border-radius: 5px;
+      }
+
+      /* Features Grid */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 2rem 0;
+      }
+
+      .feature-card {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .feature-card h3 {
+        color: #2c3e50;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+
+      .feature-card p {
+        color: #6c757d;
+        font-size: 0.95rem;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        header h1 {
+          font-size: 2rem;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section,
+        .widget-section {
+          padding: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="page-indicator">
+          <span class="html-badge">HTML</span>
+          <span class="react-badge">React</span>
+        </div>
+        <h1>Iframe Embedding Demo</h1>
+        <p>Learn how to embed React components as iframes in any website</p>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <div class="container">
+        <!-- Overview Section -->
+        <section class="section">
+          <h2>What is Iframe Embedding?</h2>
+          <p>
+            Iframe embedding allows you to integrate external web applications
+            or components into your existing website. This technique is commonly
+            used for embedding widgets, forms, maps, and interactive content
+            without affecting the parent page's styling or functionality.
+          </p>
+          <p>
+            In this demo, we'll show you how to embed a React-based poll widget
+            into any website using iframes, along with techniques for dynamic
+            height adjustment and cross-origin communication.
+          </p>
+        </section>
+
+        <!-- Widget Section -->
+        <section class="widget-section">
+          <h2>Live Demo: Embedded Poll Widget</h2>
+          <p>
+            Below is a React poll widget embedded as an iframe. Notice how it
+            seamlessly integrates with this page's design while maintaining its
+            own functionality and styling.
+          </p>
+
+          <div class="iframe-container">
+            <iframe
+              id="poll-iframe"
+              src="/poll-widget"
+              width="100%"
+              height="400"
+              frameborder="0"
+              scrolling="no"
+            >
+            </iframe>
+          </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section">
+          <h2>Key Benefits of Iframe Embedding</h2>
+          <div class="features-grid">
+            <div class="feature-card">
+              <h3>Isolation</h3>
+              <p>
+                Iframes provide complete isolation between the embedded content
+                and the parent page, preventing CSS conflicts and JavaScript
+                interference.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Security</h3>
+              <p>
+                Embedded content runs in its own context, providing an
+                additional layer of security and preventing cross-site scripting
+                attacks.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Maintainability</h3>
+              <p>
+                Embedded components can be updated independently without
+                affecting the parent website or requiring redeployment.
+              </p>
+            </div>
+            <div class="feature-card">
+              <h3>Cross-Origin Support</h3>
+              <p>
+                Iframes can load content from different domains, enabling
+                integration of third-party services and components.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Implementation Section -->
+        <section class="section">
+          <h2>Implementation Guide</h2>
+          <p>To embed a React component as an iframe, you need to:</p>
+          <ol style="margin-left: 20px; margin-top: 1rem">
+            <li style="margin-bottom: 0.5rem">
+              <strong>Create a dedicated route</strong> in your React app for
+              the component you want to embed
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>Add iframe detection</strong> to handle embedded vs
+              standalone rendering
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>Implement height adjustment</strong> to ensure the iframe
+              fits the content
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>Set up cross-origin communication</strong> for dynamic
+              configuration and event handling
+            </li>
+          </ol>
+          <p>
+            The embedded widget above demonstrates all these techniques,
+            including real-time height adjustment and message passing between
+            the iframe and parent page.
+          </p>
+        </section>
+
+        <!-- Technical Details Section -->
+        <section class="section">
+          <h2>Technical Details</h2>
+          <p>
+            This demo showcases several advanced iframe embedding techniques:
+          </p>
+          <ul style="margin-left: 20px; margin-top: 1rem">
+            <li style="margin-bottom: 0.5rem">
+              <strong>Dynamic Height Adjustment:</strong> The iframe
+              automatically resizes based on content changes
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>PostMessage Communication:</strong> Secure cross-origin
+              messaging for configuration and events
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>Responsive Design:</strong> The embedded component adapts
+              to different container sizes
+            </li>
+            <li style="margin-bottom: 0.5rem">
+              <strong>State Management:</strong> Local storage persistence
+              within the iframe context
+            </li>
+          </ul>
+          <p>
+            These techniques ensure that embedded components work seamlessly
+            across different websites and use cases.
+          </p>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const iframe = document.getElementById("poll-iframe");
+
+      // Handle height updates from the widget
+      window.addEventListener("message", (event) => {
+        if (event.data.type === "WIDGET_HEIGHT") {
+          const newHeight = Math.max(event.data.height, 200); // Minimum height of 200px
+          iframe.style.height = `${newHeight}px`;
+        }
+      });
+    </script>
+  </body>
+</html>

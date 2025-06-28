@@ -1,0 +1,65 @@
+.poll-widget {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+}
+
+.poll-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.poll-question {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.4;
+}
+
+.poll-total-votes {
+  display: inline-block;
+  padding: 4px 12px;
+  background: #f8f9fa;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Responsive design for iframe embedding */
+@media (max-width: 480px) {
+  .poll-widget {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .poll-question {
+    font-size: 1.1rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .poll-widget {
+    background: #2c3e50;
+    border-color: #34495e;
+    color: #ecf0f1;
+  }
+
+  .poll-question {
+    color: #ecf0f1;
+  }
+
+  .poll-total-votes {
+    background: #34495e;
+    color: #bdc3c7;
+  }
+}

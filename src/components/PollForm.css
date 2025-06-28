@@ -1,0 +1,260 @@
+.poll-form {
+  margin-top: 20px;
+}
+
+.poll-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.poll-option {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px;
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  height: 48px;
+}
+
+.poll-option:hover {
+  background: rgba(0, 119, 181, 0.05);
+  border-color: rgba(0, 119, 181, 0.2);
+}
+
+.poll-option.selected {
+  background: rgba(0, 119, 181, 0.08);
+  border-color: rgba(0, 119, 181, 0.3);
+}
+
+.poll-option.user-vote {
+  background: rgba(0, 119, 181, 0.05);
+  border-color: rgba(0, 119, 181, 0.2);
+}
+
+.poll-option.result {
+  background: transparent;
+  border-color: #ccc;
+}
+
+.hidden-radio {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.poll-option-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 100%;
+  color: #191919;
+}
+
+.option-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: inherit;
+}
+
+.poll-option.selected .option-label {
+  font-weight: 600;
+  color: #191919;
+}
+
+.poll-option.user-vote .option-label {
+  font-weight: 600;
+  color: #191919;
+}
+
+.vote-count {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.poll-option.user-vote .vote-count {
+  color: #191919;
+}
+
+.percentage {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.poll-option.user-vote .percentage {
+  color: #191919;
+}
+
+.poll-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.poll-progress.voted {
+  background: #e0e0e0;
+  transition: width 0.3s ease, background-color 0.2s ease;
+}
+
+.poll-option.selected .poll-progress {
+  background: rgba(0, 119, 181, 0.1);
+}
+
+.poll-option.user-vote .poll-progress {
+  background: rgba(125, 211, 68, 0.82);
+}
+
+.vote-button {
+  width: 100%;
+  padding: 12px 24px;
+  background: #0077b5;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.vote-button:hover:not(.disabled) {
+  background: #006097;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 119, 181, 0.3);
+}
+
+.vote-button:active:not(.disabled) {
+  transform: translateY(0);
+}
+
+.vote-button.disabled {
+  background: #e0e0e0;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.results-footer {
+  text-align: center;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.reset-button {
+  padding: 10px 20px;
+  background: #666;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.reset-button:hover {
+  background: #555;
+  transform: translateY(-1px);
+}
+
+.reset-button:active {
+  transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .poll-option {
+    height: 40px;
+  }
+
+  .poll-option-bar {
+    padding: 0 12px;
+  }
+
+  .option-label {
+    font-size: 15px;
+  }
+
+  .vote-button {
+    padding: 10px 20px;
+    font-size: 15px;
+  }
+
+  .vote-count,
+  .percentage {
+    font-size: 13px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .poll-option {
+    background: #2d2d2d;
+    border-color: #404040;
+  }
+
+  .poll-option:hover {
+    background: rgba(0, 119, 181, 0.1);
+    border-color: rgba(0, 119, 181, 0.3);
+  }
+
+  .poll-option.selected {
+    background: rgba(0, 119, 181, 0.15);
+    border-color: rgba(0, 119, 181, 0.4);
+  }
+
+  .poll-option.user-vote {
+    background: rgba(0, 119, 181, 0.1);
+    border-color: rgba(0, 119, 181, 0.3);
+  }
+
+  .option-label {
+    color: #e0e0e0;
+  }
+
+  .poll-option.selected .option-label,
+  .poll-option.user-vote .option-label {
+    color: #4fc3f7;
+  }
+
+  .vote-count,
+  .percentage {
+    color: #b0b0b0;
+  }
+
+  .poll-option.user-vote .vote-count,
+  .poll-option.user-vote .percentage {
+    color: #4fc3f7;
+  }
+
+  .vote-button.disabled {
+    background: #424242;
+    color: #9e9e9e;
+  }
+
+  .results-footer {
+    border-top-color: #404040;
+  }
+
+  .reset-button {
+    background: #666;
+  }
+
+  .reset-button:hover {
+    background: #777;
+  }
+}
