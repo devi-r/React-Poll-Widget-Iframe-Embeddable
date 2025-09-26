@@ -55,7 +55,7 @@ Copy this code to embed the poll widget in your website:
 </iframe>
 ```
 
-> **💡 Tip**: Check out the [demo.html](https://react-poll-widget.onrender.com/demo.html) page to see a real example of iframe embedding in action!
+> Check out the [demo.html](https://react-poll-widget.onrender.com/demo.html) page to see a real example of iframe embedding in action!
 
 ### Customizing the Poll
 
